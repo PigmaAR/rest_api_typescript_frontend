@@ -75,7 +75,21 @@ export async function updateProduct(data: ProductData, id: Product["id"]) {
       availability: toBoolean(data.availability.toString()),
     });
 
+    if (result.success) {
+      const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`;
+      await axios.put(url, result.output);
+    }
+
     console.log(result);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function deleteProduct(id: Product["id"]) {
+  try {
+    const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`;
+    await axios.delete(url);
   } catch (e) {
     console.log(e);
   }
